@@ -4,60 +4,71 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class PigDice {
+
 	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
 		Random random = new Random();
-
-		int totalScore = 0;
 		final int targetScore = 20;
 
-		System.out.println("Let's Play PIG!");
-		System.out.println("Reach 20 points to win.\n");
+		boolean playAgain = true;
 
-		for (int turn = 1; totalScore < targetScore; turn++) {
+		while (playAgain) {
+			int totalScore = 0;
+			int turn = 1;
 
-			int turnScore = 0;
-			System.out.println("Turn " + turn);
+			System.out.println("\nLet's Play PIG!");
 
-			for (boolean turnOver = false; !turnOver;) {
+			while (totalScore < targetScore) {
 
-				System.out.print("Roll or hold? (r/h): ");
-				String choice = scanner.nextLine().toLowerCase();
+				int turnScore = 0;
+				boolean turnOver = false;
 
-				if (choice.equals("r")) {
+				System.out.println("\nTurn " + turn);
 
-					int die = random.nextInt(6) + 1;
-					System.out.println("Die: " + die);
+				while (!turnOver) {
 
-					if (die == 1) {
-						turnScore = 0;
+					System.out.print("Roll or hold? (r/h): ");
+					String choice = scanner.nextLine().toLowerCase();
+
+					if (choice.equals("r")) {
+						int die = random.nextInt(6) + 1;
+						System.out.println("Die: " + die);
+
+						if (die == 1) {
+							turnScore = 0;
+							turnOver = true;
+							System.out.println("Turn over. No score.");
+						} else {
+							turnScore += die;
+						}
+
+					} else if (choice.equals("h")) {
+						totalScore += turnScore;
 						turnOver = true;
-						System.out.println("Turn over. No score.\n");
+						System.out.println("Score for turn: " + turnScore);
+						System.out.println("Total score: " + totalScore);
+
 					} else {
-						turnScore += die;
+						System.out.println("Invalid input. Enter 'r' or 'h'.");
 					}
-
-				} else if (choice.equals("h")) {
-
-					totalScore += turnScore;
-					turnOver = true;
-
-					System.out.println("Score for turn: " + turnScore);
-					System.out.println("Total score: " + totalScore + "\n");
-					
-					if (totalScore >= targetScore) {
-				        System.out.println("You reached 20 points or more. You win");
-				        break;
-				    }
-
-				} else {
-					System.out.println("Invalid input. Enter 'r' or 'h'.");
 				}
+
+				turn++;
+			}
+
+			System.out.println("\nYou finished in " + (turn - 1) + " turns!");
+			System.out.println("Game over!");
+
+			System.out.print("\nDo you want to play again? (yes/no): ");
+			String response = scanner.nextLine().trim().toLowerCase();
+
+			if (!response.equals("yes")) {
+				playAgain = false;
+				System.out.println("Thanks for playing Pig Dice!");
 			}
 		}
 
 		scanner.close();
 	}
-
 }
