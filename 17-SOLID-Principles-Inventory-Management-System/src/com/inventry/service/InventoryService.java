@@ -55,18 +55,18 @@ public class InventoryService {
 	}
 
 	private void checkAndReorder(Product product) {
-		if (product.getQuantity() <= product.getReorderLevel()) {
-			reorderService.reorder(product);
 
-			for (Notifier notifier : notifiers) {
-				notifier.send("Low stock alert for product: " + product.getProdName());
-			}
+		if (product.getQuantity() <= product.getReorderLevel()) {
+
+			reorderService.checkAndReorder(product);
+
+
 		}
 
 	}
 
 	public void printInventoryValue() {
-		double value = valuationStrategy.calculate(products);
+		double value = valuationStrategy.calculateValue(products);
 		System.out.printf("Total inventory value: $%.2f\n", value);
 	}
 

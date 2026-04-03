@@ -114,11 +114,11 @@ public class InventoryManager {
 				}
 				System.out.print("Enter quantity to remove: ");
 				int qty = scanner.nextInt();
-				
+
 				if (qty < 0) {
 					throw new IllegalArgumentException("Quantity cannot be negative");
 				}
-				
+
 				scanner.nextLine();
 
 				inventoryService.removeStock(productId, qty);
