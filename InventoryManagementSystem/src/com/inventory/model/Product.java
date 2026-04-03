@@ -1,4 +1,4 @@
-package com.inventry.model;
+package com.inventory.model;
 
 public class Product {
 
@@ -38,7 +38,7 @@ public class Product {
 		return price;
 	}
 
-	public Integer getProductId() {
+	public int getProductId() {
 		return productId;
 	}
 

@@ -1,8 +1,8 @@
-package com.inventry.service;
+package com.inventory.service;
 
 import java.util.Scanner;
 
-import com.inventry.model.Product;
+import com.inventory.model.Product;
 
 public class InventoryManager {
 

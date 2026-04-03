@@ -3,7 +3,7 @@ package com.inventory.valuation;
 import java.util.List;
 import java.util.Map;
 
-import com.inventry.model.Product;
+import com.inventory.model.Product;
 
 public interface ValuationStrategy {
 

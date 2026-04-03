@@ -1,14 +1,14 @@
-package com.inventry.service;
+package com.inventory.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import com.inventory.model.Product;
 
 import com.inventory.valuation.ValuationStrategy;
-import com.inventry.model.Product;
-import com.inventry.notification.Notifier;
+import com.inventory.notification.Notifier;
 
 public class InventoryService {
 

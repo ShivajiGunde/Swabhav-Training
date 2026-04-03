@@ -1,9 +1,8 @@
-package com.inventry.service;
-
+package com.inventory.service;
 import java.util.List;
 
-import com.inventry.model.Product;
-import com.inventry.notification.Notifier;
+import com.inventory.model.Product;
+import com.inventory.notification.Notifier;
 
 public class ReorderService {
 

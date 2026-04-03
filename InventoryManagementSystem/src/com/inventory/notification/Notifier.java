@@ -1,4 +1,4 @@
-package com.inventry.notification;
+package com.inventory.notification;
 
 public interface Notifier {
 

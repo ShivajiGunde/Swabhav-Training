@@ -3,12 +3,13 @@ package com.inventory.valuation;
 import java.util.List;
 import java.util.Map;
 
-import com.inventry.model.Product;
+import com.inventory.model.Product;
 
 public class SimpleValuation implements ValuationStrategy {
 
 	@Override
 	public double calculateValue(Map<Integer, Product> products) {
+
 		double total = 0;
 		for (Product p : products.values()) {
 
@@ -17,5 +18,4 @@ public class SimpleValuation implements ValuationStrategy {
 		return total;
 
 	}
-
 }
