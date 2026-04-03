@@ -52,10 +52,7 @@ public class InventoryService {
 		// check the reorder
 		checkAndReorder(product);
 
-
 	}
-
-
 
 	private void checkAndReorder(Product product) {
 		if (product.getQuantity() <= product.getReorderLevel()) {
@@ -68,21 +65,19 @@ public class InventoryService {
 
 	}
 
-	
-
 	public void printInventoryValue() {
 		double value = valuationStrategy.calculate(products);
 		System.out.printf("Total inventory value: $%.2f\n", value);
 	}
-	
-	public void showAllProducts() {
-	    if (products.isEmpty()) {
-	        System.out.println("No products available.");
-	        return;
-	    }
 
-	    for (Product product : products.values()) {
-	        System.out.println(product);
-	    }
+	public void showAllProducts() {
+		if (products.isEmpty()) {
+			System.out.println("No products available.");
+			return;
+		}
+
+		for (Product product : products.values()) {
+			System.out.println(product);
+		}
 	}
 }

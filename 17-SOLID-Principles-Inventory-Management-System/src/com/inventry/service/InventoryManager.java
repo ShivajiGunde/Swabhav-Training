@@ -25,7 +25,7 @@ public class InventoryManager {
 
 			System.out.print("Enter your choice: ");
 			int choice = scanner.nextInt();
-			
+
 			scanner.nextLine();
 
 			switch (choice) {
@@ -55,37 +55,36 @@ public class InventoryManager {
 			try {
 				System.out.print("Enter product Id: ");
 				int productId = scanner.nextInt();
-				
-				if(productId < 0) {
+
+				if (productId < 0) {
 					throw new IllegalArgumentException("ProductId cannot be negative");
 				}
 				scanner.nextLine();
 
 				System.out.print("Enter product name: ");
 				String name = scanner.nextLine();
-				
+
 				if (name == null || !name.matches("^[A-Za-z ]{2,50}$")) {
 					throw new IllegalArgumentException("Invalid product name Only letters allowed.");
 				}
 
 				System.out.print("Enter product quantity: ");
 				int qty = scanner.nextInt();
-				
+
 				if (qty < 0) {
 					throw new IllegalArgumentException("Quantity cannot be negative");
 				}
 
-
 				System.out.println("Enter reorder level: ");
 				int reoderLevel = scanner.nextInt();
-				
+
 				if (reoderLevel < 0) {
 					throw new IllegalArgumentException("Reorder level cannot be negative");
 				}
 
 				System.out.println("Enter price: ");
 				double price = scanner.nextDouble();
-				
+
 				if (price < 0) {
 					throw new IllegalArgumentException("Price cannot be negative");
 				}
@@ -95,7 +94,7 @@ public class InventoryManager {
 				Product product = new Product(productId, name, qty, reoderLevel, price);
 				inventoryService.addProduct(product);
 				break;
-				
+
 			} catch (IllegalArgumentException e) {
 
 				System.out.println("Error: " + e.getMessage());
@@ -110,8 +109,16 @@ public class InventoryManager {
 				System.out.print("Enter product Id: ");
 				int productId = scanner.nextInt();
 
+				if (productId < 0) {
+					throw new IllegalArgumentException("ProductId cannot be negative");
+				}
 				System.out.print("Enter quantity to remove: ");
 				int qty = scanner.nextInt();
+				
+				if (qty < 0) {
+					throw new IllegalArgumentException("Quantity cannot be negative");
+				}
+				
 				scanner.nextLine();
 
 				inventoryService.removeStock(productId, qty);
