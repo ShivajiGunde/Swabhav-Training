@@ -1,0 +1,22 @@
+package com.candidate.model;
+
+import java.util.Comparator;
+
+public class CandidateComparator implements Comparator<Candidate>{
+
+	@Override
+	public int compare(Candidate c1, Candidate c2) {
+		
+		int nameCompare = c1.name.compareTo(c2.name);
+		
+		if (nameCompare == 0) {
+            return c1.age - c2.age;
+        }
+
+
+		return nameCompare;
+	}
+	
+	
+
+}
