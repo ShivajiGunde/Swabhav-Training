@@ -1,7 +1,6 @@
 package com.monocept.model;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class ComputerPlayer extends Player {
 
@@ -17,8 +16,8 @@ public class ComputerPlayer extends Player {
 	public void makeMove(Board board) {
 
 		int row, col;
-		
-				System.out.println("Computer is making a move...");
+
+		System.out.println("Computer is making a move...");
 
 		while (true) {
 			row = random.nextInt(3);
@@ -33,6 +32,5 @@ public class ComputerPlayer extends Player {
 			}
 		}
 	}
-	
 
 }

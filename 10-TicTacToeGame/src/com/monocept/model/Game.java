@@ -64,7 +64,7 @@ public class Game {
 
 			if (board.checkWinner(currentPlayer.getSymbol())) {
 				board.display();
-				System.out.println(currentPlayer.getName()+" " + currentPlayer.getSymbol() + " wins!");
+				System.out.println(currentPlayer.getName() + " " + currentPlayer.getSymbol() + " wins!");
 				break;
 
 			}

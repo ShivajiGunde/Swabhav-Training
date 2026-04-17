@@ -32,15 +32,12 @@ public class Board {
 		}
 	}
 
-
-
 	public boolean isCellEmpty(int row, int col) {
 
 		return grid[row][col] == ' ';
 
 	}
 
-	
 	public boolean updateCell(int row, int col, char symbol) {
 		if (isCellEmpty(row, col)) {
 
