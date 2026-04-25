@@ -20,18 +20,18 @@ The system ensures:
 - Safe transactional database operations
 - Consistent data integrity
 
-## 🔥 Key Features
+## Key Features
 
-- ✔ Transaction Management (Commit / Rollback)
-- ✔ No duplicate registrations
-- ✔ Input validation (name, age, fee)
-- ✔ PreparedStatement (SQL Injection safe)
-- ✔ JOIN queries for reports
-- ✔ Proper exception handling
+-  Transaction Management (Commit / Rollback)
+-  No duplicate registrations
+-  Input validation (name, age, fee)
+-  PreparedStatement (SQL Injection safe)
+-  JOIN queries for reports
+-  Proper exception handling
 
 ---
 
-## ⚠️ Edge Cases Handled
+##  Edge Cases Handled
 
 - Duplicate student ID
 - Duplicate course registration
