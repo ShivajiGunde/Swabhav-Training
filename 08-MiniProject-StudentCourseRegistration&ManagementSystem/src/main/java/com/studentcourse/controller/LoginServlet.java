@@ -20,11 +20,12 @@ import jakarta.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+	                     HttpServletResponse response)
+	        throws ServletException, IOException {
 
-		doPost(req, resp);
-//		RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
-//		rd.forward(req, resp);
+	    request.getRequestDispatcher("/WEB-INF/views/login.jsp")
+	           .forward(request, response);
 	}
 
 	@Override
@@ -33,6 +34,7 @@ public class LoginServlet extends HttpServlet {
 		resp.setContentType("text/html");
 
 		String username = req.getParameter("username");
+
 		String password = req.getParameter("password");
 
 		String remember = req.getParameter("remember");
@@ -48,16 +50,17 @@ public class LoginServlet extends HttpServlet {
 			if (remember != null && remember.equals("yes")) {
 
 				Cookie cookie = new Cookie("username", username);
-				cookie.setMaxAge(60 * 60 * 24 * 7);
+				cookie.setMaxAge(5 * 60);
 				resp.addCookie(cookie);
 
 			}
-			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/views/dashboard.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/dashboard.jsp");
 			rd.forward(req, resp);
 
 		} else {
 
-			RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
+			req.setAttribute("error", "Invalid Username or Password");
+			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
 			rd.forward(req, resp);
 
 			// resp.sendRedirect("login.jsp");

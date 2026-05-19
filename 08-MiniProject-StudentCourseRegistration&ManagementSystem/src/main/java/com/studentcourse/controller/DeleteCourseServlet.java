@@ -13,30 +13,42 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/DeleteCourseServlet")
 public class DeleteCourseServlet extends HttpServlet {
 
-    CourseDAO courseDAO;
+    CourseDAO courseDAO = new CourseDAO();
 
     @Override
-    public void init() {
-        courseDAO = new CourseDAO();
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idStr = request.getParameter("id");
+        String idStr = request.getParameter("courseId");
 
+        // VALIDATION 1: empty or null check
         if (idStr == null || idStr.trim().isEmpty()) {
 
             request.setAttribute("errorMessage", "Invalid Course ID");
-            request.getRequestDispatcher("WEB-INF/views/course-list.jsp")
-                    .forward(request, response);
+
+            request.getRequestDispatcher("/WEB-INF/views/course-list.jsp")
+                   .forward(request, response);
+
+            return; // IMPORTANT
+        }
+
+        int courseId;
+
+        // VALIDATION 2: number format check
+        try {
+            courseId = Integer.parseInt(idStr);
+        } catch (NumberFormatException e) {
+
+            request.setAttribute("errorMessage", "Course ID must be a number");
+
+            request.getRequestDispatcher("/WEB-INF/views/course-list.jsp")
+                   .forward(request, response);
+
             return;
         }
 
-        int courseId = Integer.parseInt(idStr);
-
-        
+        // DELETE OPERATION
         boolean deleted = courseDAO.deleteCourse(courseId);
 
         if (deleted) {
@@ -46,8 +58,9 @@ public class DeleteCourseServlet extends HttpServlet {
         } else {
 
             request.setAttribute("errorMessage", "Failed to delete course");
-            request.getRequestDispatcher("WEB-INF/views/course-list.jsp")
-                    .forward(request, response);
+
+            request.getRequestDispatcher("/WEB-INF/views/course-list.jsp")
+                   .forward(request, response);
         }
     }
 }

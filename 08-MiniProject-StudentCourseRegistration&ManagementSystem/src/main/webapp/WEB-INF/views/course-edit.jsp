@@ -54,7 +54,7 @@
 
     <form action="UpdateCourseServlet" method="post">
 
-        <input type="hidden" name="id" value="<%= course.getId() %>">
+        <input type="hidden" name="courseId" value="<%= course.getCourseId() %>">
 
         <label>Course Name</label>
         <input type="text" name="courseName" value="<%= course.getCourseName() %>" required>

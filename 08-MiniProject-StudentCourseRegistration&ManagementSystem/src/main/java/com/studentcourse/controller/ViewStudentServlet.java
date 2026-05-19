@@ -26,7 +26,7 @@ public class ViewStudentServlet extends HttpServlet {
 
 			req.setAttribute("studentList", studentList);
 
-			req.getRequestDispatcher("WEB-INF/views/viewStudents.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/student-list.jsp").forward(req, resp);
 
 		} catch (Exception e) {
 
@@ -34,7 +34,7 @@ public class ViewStudentServlet extends HttpServlet {
 
 			req.setAttribute("errorMessage", "Unable to fetch students");
 
-			req.getRequestDispatcher("WEB-INF/views/viewStudents.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/student-list.jsp").forward(req, resp);
 		}
 	}
 

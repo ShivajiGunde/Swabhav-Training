@@ -1,13 +1,13 @@
 package com.studentcourse.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Registration {
 
 	private int registrationId;
 	private int studentId;
 	private int courseId;
-	private Date registrationDate;
+	private  Date registrationDate;
 	private String status;
 
 	public Registration() {

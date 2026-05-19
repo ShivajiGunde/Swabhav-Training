@@ -69,23 +69,23 @@
 
         <li><a href="ViewStudentsServlet">3. View Student List</a></li>
 
-        <li><a href="UpdateStudentServlet">4. Update Student</a></li>
+<!--         <li><a href="UpdateStudentServlet">4. Update Student</a></li> -->
 
-        <li><a href="DeleteStudentServlet">5. Delete Student</a></li>
+<!--         <li><a href="DeleteStudentServlet">5. Delete Student</a></li> -->
 
-        <li><a href="AddCourseServlet">6. Add Course</a></li>
+        <li><a href="AddCourseServlet">4. Add Course</a></li>
 
-        <li><a href="ViewCoursesServlet">7. View Course List</a></li>
+        <li><a href="ViewCoursesServlet">5. View Course List</a></li>
 
-        <li><a href="UpdateCourseServlet">8. Update Course</a></li>
+<!--         <li><a href="UpdateCourseServlet">8. Update Course</a></li> -->
 
-        <li><a href="DeleteCourseServlet">9. Delete Course</a></li>
+<!--         <li><a href="DeleteCourseServlet">9. Delete Course</a></li> -->
 
-        <li><a href="RegisterStudentServlet">10. Register Student to Course</a></li>
+        <li><a href="RegisterStudentCourseServlet">6. Register Student to Course</a></li>
 
-        <li><a href="ViewRegistrationsServlet">11. View Registrations</a></li>
+        <li><a href="ViewRegistrationsServlet">7. View Registrations</a></li>
 
-        <li><a href="LogoutServlet">12. Logout</a></li>
+        <li><a href="LogoutServlet">8. Logout</a></li>
     </ul>
 
 </div>

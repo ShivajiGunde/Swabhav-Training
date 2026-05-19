@@ -31,6 +31,27 @@ import com.studentcourse.util.DBConnection;
 	        return false;
 	    }
 
+	    
+	    public boolean isAlreadyRegistered(int studentId, int courseId) {
+
+	        String sql = "SELECT 1 FROM registrations WHERE student_id=? AND course_id=?";
+
+	        try (Connection con = DBConnection.getConnection();
+	             PreparedStatement ps = con.prepareStatement(sql)) {
+
+	            ps.setInt(1, studentId);
+	            ps.setInt(2, courseId);
+
+	            ResultSet rs = ps.executeQuery();
+
+	            return rs.next(); 
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return false;
+	    }
 	    public List<Registration> getAllRegistrations() {
 
 	        List<Registration> list = new ArrayList<>();
@@ -63,7 +84,7 @@ import com.studentcourse.util.DBConnection;
 	        return list;
 	    }
 
-	    public boolean updateStatus(int id, String status) {
+	    public boolean updateStatus(int registrationId, String status) {
 
 	        String sql = "UPDATE registrations SET status=? WHERE registration_id=?";
 
@@ -73,7 +94,7 @@ import com.studentcourse.util.DBConnection;
 	        ) {
 
 	            ps.setString(1, status);
-	            ps.setInt(2, id);
+	            ps.setInt(2, registrationId);
 
 	            return ps.executeUpdate() > 0;
 
@@ -84,7 +105,7 @@ import com.studentcourse.util.DBConnection;
 	        return false;
 	    }
 
-	    public boolean deleteRegistration(int id) {
+	    public boolean deleteRegistration(int registrationId) {
 
 	        String sql = "DELETE FROM registrations WHERE registration_id=?";
 
@@ -93,7 +114,7 @@ import com.studentcourse.util.DBConnection;
 	            PreparedStatement ps = con.prepareStatement(sql)
 	        ) {
 
-	            ps.setInt(1, id);
+	            ps.setInt(1, registrationId);
 
 	            return ps.executeUpdate() > 0;
 

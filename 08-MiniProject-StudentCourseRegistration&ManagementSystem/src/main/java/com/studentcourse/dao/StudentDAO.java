@@ -46,9 +46,9 @@ public class StudentDAO {
 
 		try (Connection con = DBConnection.getConnection();
 
-				PreparedStatement ps = con.prepareStatement(sql);
+				PreparedStatement ps = con.prepareStatement(sql)){
 
-				ResultSet rs = ps.executeQuery();) {
+				ResultSet rs = ps.executeQuery(); {
 
 			while (rs.next()) {
 
@@ -68,9 +68,10 @@ public class StudentDAO {
 
 				studentList.add(student);
 			}
+			
 		}
+				return studentList;}
 
-		return studentList;
 	}
 
 	public Student getStudentById(int studentId) {
@@ -89,6 +90,7 @@ public class StudentDAO {
 
 				student = new Student();
 
+	            student.setStudentId(rs.getInt("student_id")); // IMPORTANT
 				student.setStudentName(rs.getString("student_name"));
 				student.setEmail(rs.getString("email"));
 				student.setPhone(rs.getString("phone"));
@@ -106,38 +108,55 @@ public class StudentDAO {
 
 	public boolean updateStudent(Student student) throws Exception {
 
-		boolean status = false;
+	    boolean status = false;
 
-		String sql = "UPDATE students SET student_name=?, " + "email=?, phone=?, age=?, city=? " + "WHERE student_id=?";
+	    String sql =
+	        "UPDATE students SET " +
+	        "student_name=?, " +
+	        "email=?, " +
+	        "phone=?, " +
+	        "age=?, " +
+	        "city=? " +
+	        "WHERE student_id=?";
 
-		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+	    try (Connection con = DBConnection.getConnection();
 
-			ps.setString(1, student.getStudentName());
+	         PreparedStatement ps =
+	                 con.prepareStatement(sql)) {
 
-			ps.setString(2, student.getEmail());
+	    	System.out.println(student);
+	    	
+	        ps.setString(1, student.getStudentName());
 
-			ps.setString(3, student.getPhone());
+	        ps.setString(2, student.getEmail());
 
-			ps.setInt(4, student.getAge());
+	        ps.setString(3, student.getPhone());
 
-			ps.setString(5, student.getCity());
+	        ps.setInt(4, student.getAge());
 
-			ps.setInt(6, student.getStudentId());
+	        ps.setString(5, student.getCity());
 
-			int rows = ps.executeUpdate();
+	        ps.setInt(6, student.getStudentId());
 
-			if (rows > 0) {
+	        int rows = ps.executeUpdate();
 
-				status = true;
-			}
-		}
-		return status;
+	        System.out.println("Rows Updated = " + rows);
+
+	        if (rows > 0) {
+
+	            status = true;
+	        }
+	    }
+
+	    return status;
 	}
 
 	
 	
 	public boolean isStudentRegistered(int studentId) {
 		String sql = "SELECT 1 FROM registrations WHERE student_id = ?";
+		
+		
 
 		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -157,7 +176,7 @@ public class StudentDAO {
 	
 
 	public boolean deleteStudent(int studentId) {
-		String sql = "DELETE FROM students WHERE id = ?";
+		String sql = "DELETE FROM students WHERE student_id = ?";
 
 		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -174,3 +193,4 @@ public class StudentDAO {
 		return false;
 	}
 }
+

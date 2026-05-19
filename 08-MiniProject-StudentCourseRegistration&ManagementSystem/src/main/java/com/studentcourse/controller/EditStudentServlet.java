@@ -14,22 +14,34 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/EditStudentServlet")
 public class EditStudentServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    protected void doGet(HttpServletRequest req,
-                         HttpServletResponse resp)
-            throws IOException, ServletException {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        int studentId = Integer.parseInt(req.getParameter("studentId"));
+		String studentIdStr = req.getParameter("studentId");
 
-        StudentDAO dao = new StudentDAO();
+		if (studentIdStr == null || studentIdStr.isEmpty()) {
 
-        Student student = dao.getStudentById(studentId);
+			resp.getWriter().println("Student ID is missing");
+			return;
+		}
 
-        req.setAttribute("student", student);
+		int studentId = Integer.parseInt(studentIdStr);
 
-        req.getRequestDispatcher("/WEB-INF/views/update-student.jsp")
-           .forward(req, resp);
-    }
+		StudentDAO dao = new StudentDAO();
+
+		Student student = dao.getStudentById(studentId);
+
+		if (student == null) {
+
+			resp.getWriter().println("Student not found");
+			return;
+		}
+
+		req.setAttribute("student", student);
+
+		req.getRequestDispatcher("/WEB-INF/views/student-edit.jsp").forward(req, resp);
+
+	}
 }

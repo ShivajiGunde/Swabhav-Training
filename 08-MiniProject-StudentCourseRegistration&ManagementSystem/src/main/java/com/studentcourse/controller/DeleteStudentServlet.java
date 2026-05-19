@@ -1,5 +1,4 @@
 package com.studentcourse.controller;
-
 import java.io.IOException;
 
 import com.studentcourse.dao.StudentDAO;
@@ -11,45 +10,48 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/DeleteStudentServlet")
-public class DeleteStudentServlet extends HttpServlet {
+public class DeleteStudentServlet extends HttpServlet{
+	
+	StudentDAO studentDAO = new StudentDAO();
+	
+	
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
 
-	StudentDAO studentDAO;
+    String idStr = request.getParameter("studentId");
 
-	@Override
-	public void init() {
-		studentDAO = new StudentDAO();
+    if (idStr == null || idStr.trim().isEmpty()) {
 
-	}
+        response.sendRedirect("ViewStudentsServlet");
+        return;
+    }
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    int studentId;
 
-		int studentId = Integer.parseInt(request.getParameter("studentId"));
+    try {
+        studentId = Integer.parseInt(idStr);
+    } catch (Exception e) {
+        response.sendRedirect("ViewStudentsServlet");
+        return;
+    }
 
-		// Check whether student is registered in any course
-		boolean isRegistered = studentDAO.isStudentRegistered(studentId);
+    boolean isRegistered = studentDAO.isStudentRegistered(studentId);
 
-		if (isRegistered) {
+    if (isRegistered) {
 
-			// Student already registered in a course
-			request.setAttribute("errorMessage", "Cannot delete student. Student is registered in a course.");
+        request.setAttribute("errorMessage",
+                "Cannot delete student. Student is registered in a course.");
 
-			request.getRequestDispatcher("WEB-INF/views/student-list.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/student-list.jsp")
+               .forward(request, response);
 
-		} else {
+    } else {
 
-			// Delete student
-			boolean deleted = studentDAO.deleteStudent(studentId);
+        studentDAO.deleteStudent(studentId);
 
-			if (deleted) {
-				response.sendRedirect("ViewStudentServlet");
-			} else {
-				request.setAttribute("errorMessage", "Failed to delete student.");
-
-				request.getRequestDispatcher("WEB-INF/views/student-list.jsp").forward(request, response);
-			}
-		}
-	}
+        response.sendRedirect("ViewStudentsServlet");
+    }
+}
 
 }

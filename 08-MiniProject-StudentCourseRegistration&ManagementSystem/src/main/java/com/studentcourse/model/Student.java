@@ -16,6 +16,11 @@ public class Student {
 		this.studentId = studentId;
 	}
 	
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", email=" + email + ", phone="
+				+ phone + ", age=" + age + ", city=" + city + "]";
+	}
 	public String getStudentName() {
 		return studentName;
 	}

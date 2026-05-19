@@ -19,7 +19,7 @@ public class EditCourseServlet extends HttpServlet{
 	                         HttpServletResponse resp)
 	            throws IOException, ServletException {
 
-	        int courseId = Integer.parseInt(req.getParameter("id"));
+	        int courseId = Integer.parseInt(req.getParameter("courseId"));
 
 	        CourseDAO dao = new CourseDAO();
 
@@ -27,7 +27,7 @@ public class EditCourseServlet extends HttpServlet{
 
 	        req.setAttribute("course", course);
 
-	        req.getRequestDispatcher("/WEB-INF/views/update-course.jsp")
+	        req.getRequestDispatcher("/WEB-INF/views/course-edit.jsp")
 	           .forward(req, resp);
 	    }
 

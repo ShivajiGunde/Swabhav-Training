@@ -18,8 +18,7 @@ public class AddStudentServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
-		doPost(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/student-form.jsp").forward(req, resp);
 	}
 
 	@Override
@@ -39,14 +38,23 @@ public class AddStudentServlet extends HttpServlet {
 
 			errorMessage = "Student Name is required";
 
+		} else if (!studentName.matches("[A-Za-z ]{3,50}")) {
+
+			errorMessage = "Student Name must contain only letters and spaces";
 		} else if (email == null || email.trim().isEmpty()) {
 
 			errorMessage = "Email is required";
 
+		} else if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+
+			errorMessage = "Invalid Email Format";
 		} else if (phone == null || phone.trim().isEmpty()) {
 
 			errorMessage = "Phone is required";
 
+		} else if (!phone.matches("[0-9]{10}")) {
+
+			errorMessage = "Phone Number must contain exactly 10 digits";
 		} else if (ageStr == null || ageStr.trim().isEmpty()) {
 
 			errorMessage = "Age is required";
@@ -54,6 +62,9 @@ public class AddStudentServlet extends HttpServlet {
 		} else if (city == null || city.trim().isEmpty()) {
 
 			errorMessage = "City is required";
+		} else if (!city.matches("[A-Za-z ]{3,50}")) {
+
+			errorMessage = "City must contain only letters and spaces";
 		}
 
 		int age = 0;
@@ -77,11 +88,27 @@ public class AddStudentServlet extends HttpServlet {
 
 		if (errorMessage != null) {
 
-			req.setAttribute("errorMessage", errorMessage);
+		    Student student = new Student();
 
-			req.getRequestDispatcher("/WEB-INF/views/student-form.jsp").forward(req, resp);
+		    student.setStudentName(studentName);
+		    student.setEmail(email);
+		    student.setPhone(phone);
+		    student.setCity(city);
 
-			return;
+		    // age only if valid
+		    try {
+		        student.setAge(Integer.parseInt(ageStr));
+		    } catch (Exception e) {
+		    }
+
+		    req.setAttribute("student", student);
+
+		    req.setAttribute("errorMessage", errorMessage);
+
+		    req.getRequestDispatcher("/WEB-INF/views/student-form.jsp")
+		       .forward(req, resp);
+
+		    return;
 		}
 
 		Student student = new Student();
@@ -112,7 +139,6 @@ public class AddStudentServlet extends HttpServlet {
 			resp.sendRedirect("ViewStudentsServlet");
 
 		} else {
-
 			req.setAttribute("errorMessage", "Failed to Add Student");
 
 			req.getRequestDispatcher("/WEB-INF/views/student-form.jsp").forward(req, resp);

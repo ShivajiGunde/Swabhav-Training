@@ -2,7 +2,13 @@ package com.studentcourse.model;
 
 public class Course {
 	
-	    private int id;
+	    @Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", duration=" + duration + ", fees="
+				+ fees + ", trainerName=" + trainerName + "]";
+	}
+
+		private int courseId;
 	    private String courseName;
 	    private String duration;
 	    private double fees;
@@ -11,20 +17,20 @@ public class Course {
     public Course() {
 	    }
 
-	    public Course(int id, String courseName, String duration, double fees, String trainerName) {
-	        this.id = id;
+	    public Course(int courseId, String courseName, String duration, double fees, String trainerName) {
+	        this.courseId = courseId;
 	        this.courseName = courseName;
 	        this.duration = duration;
 	        this.fees = fees;
 	        this.trainerName = trainerName;
 	    }
 
-	    public int getId() {
-	        return id;
+	    public int getCourseId() {
+	        return courseId;
 	    }
 
-	    public void setId(int id) {
-	        this.id = id;
+	    public void setCourseId(int courseId) {
+	        this.courseId = courseId;
 	    }
 
 	    public String getCourseName() {
@@ -59,15 +65,6 @@ public class Course {
 	        this.trainerName = trainerName;
 	    }
 
-	    @Override
-	    public String toString() {
-	        return "Course{" +
-	                "id=" + id +
-	                ", courseName='" + courseName + '\'' +
-	                ", duration='" + duration + '\'' +
-	                ", fees=" + fees +
-	                ", trainerName='" + trainerName + '\'' +
-	                '}';
-	    }
+	   
 	}
 

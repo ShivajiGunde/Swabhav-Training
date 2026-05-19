@@ -27,7 +27,7 @@ public class UpdateCourseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
 
-        String idStr = req.getParameter("id");
+        String idStr = req.getParameter("courseId");
         String courseName = req.getParameter("courseName");
         String duration = req.getParameter("duration");
         String feesStr = req.getParameter("fees");
@@ -53,13 +53,13 @@ public class UpdateCourseServlet extends HttpServlet {
             errorMessage = "Trainer Name is required";
         }
 
-        int id = 0;
+        int courseId = 0;
 
         if (idStr == null || idStr.trim().isEmpty()) {
             errorMessage = "Course ID is missing";
         } else {
             try {
-                id = Integer.parseInt(idStr);
+                courseId = Integer.parseInt(idStr);
             } catch (NumberFormatException e) {
                 errorMessage = "Invalid Course ID";
             }
@@ -83,7 +83,7 @@ public class UpdateCourseServlet extends HttpServlet {
 
         Course course = new Course();
 
-        course.setId(id);
+        course.setCourseId(courseId);
         course.setCourseName(courseName);
         course.setDuration(duration);
         course.setFees(fees);

@@ -10,17 +10,7 @@ import com.studentcourse.util.DBConnection;
 
 public class AdminDAO {
 
-	public static boolean isValid(String username, String password){
-
-//		// Validating the username and password
-//		if (username == null || username.trim().isEmpty()) {
-//			System.out.println("Username is required");
-//			return false;
-//		}
-//		if (password == null || password.trim().isEmpty()) {
-//			System.out.println("Password is required");
-//			return false;
-//		}
+	public static boolean isValid(String username, String password) {
 
 		String sql = "SELECT * FROM admin WHERE username = ? AND password = ?";
 
@@ -48,8 +38,7 @@ public class AdminDAO {
 
 		String sql = "SELECT * FROM admin WHERE username = ? AND password = ?";
 
-		try (Connection con = DBConnection.getConnection(); 
-				PreparedStatement ps = con.prepareStatement(sql)) {
+		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
 			ps.setString(1, username);
 			ps.setString(2, password);
@@ -63,10 +52,9 @@ public class AdminDAO {
 					return 0;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;

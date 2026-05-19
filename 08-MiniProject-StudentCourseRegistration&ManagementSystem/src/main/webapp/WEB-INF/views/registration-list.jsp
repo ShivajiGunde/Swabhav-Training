@@ -26,9 +26,9 @@
     <td><%= r.getStatus() %></td>
 
     <td>
-        <a href="UpdateRegistrationStatusServlet?id=<%= r.getRegistrationId() %>&status=COMPLETED">Complete</a>
+        <a href="UpdateRegistrationStatusServlet?registrationId=<%= r.getRegistrationId() %>&status=COMPLETED">Complete</a>
         |
-        <a href="DeleteRegistrationServlet?id=<%= r.getRegistrationId() %>">Delete</a>
+        <a href="DeleteRegistrationServlet?registrationId=<%= r.getRegistrationId() %>">Delete</a>
     </td>
 </tr>
 

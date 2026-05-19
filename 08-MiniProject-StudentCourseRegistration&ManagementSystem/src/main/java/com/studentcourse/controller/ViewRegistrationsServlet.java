@@ -20,9 +20,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 	        req.setAttribute("list", dao.getAllRegistrations());
 
-	        req.getRequestDispatcher("/WEB-INF/views/view-registrations.jsp")
+	        req.getRequestDispatcher("/WEB-INF/views/registration-list.jsp")
 	           .forward(req, resp);
 	    }
 	}
 
-}
+

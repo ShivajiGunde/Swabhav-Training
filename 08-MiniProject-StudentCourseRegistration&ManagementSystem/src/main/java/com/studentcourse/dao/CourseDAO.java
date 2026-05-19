@@ -30,41 +30,44 @@ public class CourseDAO {
 		return false;
 	}
 
-		public List<Course> getAllCourses() {
+	
+	public List<Course> getAllCourses() {
 
-		    List<Course> list = new ArrayList();
+	    List<Course> list = new ArrayList<>();
 
-		    String sql = "SELECT * FROM courses";
+	    String sql = "SELECT * FROM courses";
 
-		    try (
-		        Connection con = DBConnection.getConnection();
-		        PreparedStatement ps = con.prepareStatement(sql);
-		        ResultSet rs = ps.executeQuery()
-		    ) {
+	    try (
+	        Connection con = DBConnection.getConnection();
+	        PreparedStatement ps = con.prepareStatement(sql);
+	        ResultSet rs = ps.executeQuery()
+	    ) {
 
-		        while (rs.next()) {
+	        while (rs.next()) {
 
-		            Course c = new Course();
-		            c.setId(rs.getInt("id"));
-		            c.setCourseName(rs.getString("course_name"));
-		            c.setDuration(rs.getString("duration"));
-		            c.setFees(rs.getDouble("fees"));
-		            c.setTrainerName(rs.getString("trainer_name"));
+	            Course c = new Course();
+	            
+	            c.setCourseId(rs.getInt("course_id"));
+	            c.setCourseName(rs.getString("course_name"));
+	            c.setDuration(rs.getString("duration"));
+	            c.setFees(rs.getDouble("fees"));
+	            c.setTrainerName(rs.getString("trainer_name"));
 
-		            list.add(c);
-		        }
+	            list.add(c);
+	        }
 
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
+	    } catch (Exception e) {
 
-		    return list;
-		}
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
 
 		public Course getCourseById(int courseId) {
 			 Course course = null;
 
-			    String sql = "SELECT * FROM courses WHERE id=?";
+			    String sql = "SELECT * FROM courses WHERE course_id=?";
 
 			    try (
 			        Connection con = DBConnection.getConnection();
@@ -77,7 +80,7 @@ public class CourseDAO {
 			        if (rs.next()) {
 
 			            course = new Course();
-			            course.setId(rs.getInt("id"));
+			            course.setCourseId(rs.getInt("course_id"));
 			            course.setCourseName(rs.getString("course_name"));
 			            course.setDuration(rs.getString("duration"));
 			            course.setFees(rs.getDouble("fees"));
@@ -93,7 +96,7 @@ public class CourseDAO {
 
 		public boolean updateCourse(Course course) {
 
-		    String sql = "UPDATE courses SET course_name=?, duration=?, fees=?, trainer_name=? WHERE id=?";
+		    String sql = "UPDATE courses SET course_name=?, duration=?, fees=?, trainer_name=? WHERE course_id=?";
 
 		    try (
 		        Connection con = DBConnection.getConnection();
@@ -104,7 +107,7 @@ public class CourseDAO {
 		        ps.setString(2, course.getDuration());
 		        ps.setDouble(3, course.getFees());
 		        ps.setString(4, course.getTrainerName());
-		        ps.setInt(5, course.getId());
+		        ps.setInt(5, course.getCourseId());
 
 		        return ps.executeUpdate() > 0;
 
@@ -115,18 +118,20 @@ public class CourseDAO {
 		    return false;
 		}
 
-		public boolean deleteCourse(int id) {
+		public boolean deleteCourse(int courseId) {
 
-		    String sql = "DELETE FROM courses WHERE id=?";
+		    String sql = "DELETE FROM courses WHERE course_id=?";
 
 		    try (
 		        Connection con = DBConnection.getConnection();
 		        PreparedStatement ps = con.prepareStatement(sql)
 		    ) {
 
-		        ps.setInt(1, id);
+		        ps.setInt(1, courseId);
 
-		        return ps.executeUpdate() > 0;
+		        int rowsAffected = ps.executeUpdate();
+		        
+		        return rowsAffected > 0;
 
 		    } catch (Exception e) {
 		        e.printStackTrace();

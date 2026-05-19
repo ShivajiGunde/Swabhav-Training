@@ -14,26 +14,36 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/ViewCoursesServlet")
-public class ViewCourseServlet extends HttpServlet{
+public class ViewCourseServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		CourseDAO dao = new CourseDAO();
+
+		try {
+		List<Course> courseList = dao.getAllCourses();
+
+		request.setAttribute("courseList", courseList);
+		
+		request.getRequestDispatcher("/WEB-INF/views/course-list.jsp").forward(request, response);
+	}catch(Exception e) {
+		e.printStackTrace();
+		
+		request.setAttribute("errorMessage", "Unable to fetch courses");
+
+		request.getRequestDispatcher("/WEB-INF/views/course-list.jsp").forward(request, response);
+	}
+		
+	}
 	
-	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	        CourseDAO dao = new CourseDAO();
-
-	        List<Course> courseList = dao.getAllCourses();
-
-	        request.setAttribute("courseList", courseList);
-
-	        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/view-courses.jsp");
-	        rd.forward(request, response);
-	    }
-
-	    @Override
-	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-
-	        doGet(request, response);
-	    }
-
+		doGet(request, response);
+	}
 }

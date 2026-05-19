@@ -1,4 +1,4 @@
-package com.studentcourse.controller;
+package com.studentcourse.controller; 
 
 import java.io.IOException;
 
@@ -26,7 +26,6 @@ public class AddCourseServlet extends HttpServlet {
         String errorMessage = null;
         double fees = 0;
 
-        // ✅ SAFE validation (prevents NullPointerException)
         if (isNullOrEmpty(courseName) ||
             isNullOrEmpty(duration) ||
             isNullOrEmpty(trainerName) ||
@@ -35,7 +34,6 @@ public class AddCourseServlet extends HttpServlet {
             errorMessage = "All fields are required.";
         }
 
-        // ✅ Parse fees only if previous validation passed
         if (errorMessage == null) {
             try {
                 fees = Double.parseDouble(feesStr);
@@ -49,16 +47,14 @@ public class AddCourseServlet extends HttpServlet {
             }
         }
 
-        // ❌ If error → return to form
         if (errorMessage != null) {
             request.setAttribute("error", errorMessage);
 
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/course-form.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/course-form.jsp");
             rd.forward(request, response);
             return;
         }
 
-        // ✅ Save to DB
         Course course = new Course();
         course.setCourseName(courseName.trim());
         course.setDuration(duration.trim());
@@ -78,7 +74,6 @@ public class AddCourseServlet extends HttpServlet {
     	doPost(req, resp);
     }
 
-    // ✅ Helper method to avoid NullPointerException
     private boolean isNullOrEmpty(String value) {
         return value == null || value.trim().isEmpty();
     }
